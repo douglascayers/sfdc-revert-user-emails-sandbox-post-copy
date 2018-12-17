@@ -1,6 +1,6 @@
 # Revert User Emails on Sandbox Post Copy
 
-Salesforce adds @example.com to users emails after sandbox refresh ([why?](https://help.salesforce.com/HTViewSolution?id=000193090&language=en_US)). This post script reverts the email addresses.
+Salesforce adds `@example.com` or `.invalid` to users emails after sandbox refresh ([why?](https://help.salesforce.com/HTViewSolution?id=000193090&language=en_US)). This post script reverts the email addresses.
 
 <a href="https://githubsfdeploy.herokuapp.com">
   <img alt="Deploy to Salesforce"
