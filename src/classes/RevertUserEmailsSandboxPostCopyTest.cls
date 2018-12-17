@@ -9,13 +9,15 @@ private class RevertUserEmailsSandboxPostCopyTest {
         Profile p = [ SELECT id FROM Profile WHERE name = 'Standard User' ];
 
         User user1;
+        User user2;
 
         // https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing_tools_runas.htm
         System.runAs( new User( id = UserInfo.getUserId() ) ) {
 
             user1 = newUser( p.id, 'Alpha', 'User 1', 'user_1=salesforce.com@example.com' );
+            user2 = newUser( p.id, 'Beta', 'User 2', 'user_2@salesforce.com.invalid' );
 
-            insert user1;
+            insert new User[] { user1, user2 };
 
         }
 
@@ -31,8 +33,10 @@ private class RevertUserEmailsSandboxPostCopyTest {
         Test.stopTest();
 
         user1 = [ SELECT id, email FROM User WHERE id = :user1.id ];
-
         System.assertEquals( 'user_1@salesforce.com', user1.email );
+        
+        user2 = [ SELECT id, email FROM User WHERE id = :user2.id ];
+        System.assertEquals( 'user_2@salesforce.com', user2.email );
 
     }
 
